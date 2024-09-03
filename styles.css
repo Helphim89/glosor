@@ -8,7 +8,7 @@ body {
     background-color: #f0f0f0;
 }
 
-h1, h2 {
+h1, h2, h3 {
     text-align: center;
 }
 
@@ -27,10 +27,13 @@ button {
     justify-content: space-between;
 }
 
+.word-list-container div {
+    width: 48%;
+}
+
 .word-list-container ul {
     list-style-type: none;
     padding: 0;
-    width: 48%;
 }
 
 .word-list-container ul li {
