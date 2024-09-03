@@ -9,11 +9,16 @@
 <body>
     <h1>Glosövning - Öva</h1>
     <div id="practice-area">
-        <button onclick="playSound()">Spela upp ordet</button>
-        <input type="text" id="translation" placeholder="Skriv översättningen">
+        <label>
+            <input type="checkbox" id="include-swedish" onclick="toggleSwedish()"> Öva på svenska ordet också
+        </label>
+        <br>
+        <button id="play-swedish" onclick="playSwedishSound()">Spela upp svenska ordet</button>
+        <input type="text" id="swedish-translation" placeholder="Skriv svenska ordet" style="display: none;">
+        <input type="text" id="foreign-translation" placeholder="Skriv översättningen på annat språk">
         <button onclick="checkAnswer()">Kontrollera</button>
-        <p id="feedback"></p>
         <button onclick="loadNewWord()">Nästa ord</button>
+        <p id="feedback"></p>
     </div>
     <button onclick="goBack()">Tillbaka</button>
     <script src="practice.js"></script>
