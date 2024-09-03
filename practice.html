@@ -9,10 +9,9 @@
 <body>
     <h1>Öva Glosor</h1>
     <div id="practice-area">
-        <p id="word-to-translate"></p>
-        <button onclick="playSwedishSound()">Spela upp svenska ordet</button>
-        <input type="text" id="swedish-translation" placeholder="Skriv svenska ordet">
+        <button id="play-swedish" onclick="playSwedishSound()">Spela upp svenska ordet</button>
         <input type="text" id="foreign-translation" placeholder="Skriv översättningen på annat språk">
+        <button id="play-foreign" style="display: none;" onclick="playForeignSound()">Spela upp översättningen</button>
         <button onclick="checkAnswer()">Kontrollera</button>
         <p id="feedback"></p>
     </div>
