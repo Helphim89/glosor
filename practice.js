@@ -8,7 +8,6 @@ function loadNewWord() {
         document.getElementById('feedback').textContent = '';
         document.getElementById('sound-button-container').innerHTML = ''; // Rensa ljudknappen
         currentWordIndex++;
-        updateSoundButtons();
     } else {
         alert('Du har nått slutet av ordlistan.');
         goBack();
@@ -46,7 +45,7 @@ function checkAnswer() {
             document.getElementById('feedback').textContent = `Fel! Rätt svar är: ${correctAnswer}`;
             document.getElementById('feedback').style.color = 'red';
         }
-        showSoundButton(); // Visar alltid rätt ord oavsett om svaret var rätt eller fel
+        showSoundButton(); // Visa alltid rätt ord oavsett om svaret var rätt eller fel
     }
 }
 
@@ -60,7 +59,7 @@ function toggleLanguagePractice() {
 }
 
 function updateSoundButtons() {
-    document.getElementById('play-swedish-sound').style.display = practiceSwedish ? 'none' : 'inline-block';
+    // Båda knapparna ska alltid vara synliga, ingen gömning behövs
 }
 
 function showSoundButton() {
@@ -70,7 +69,7 @@ function showSoundButton() {
     const button = document.createElement('button');
     button.textContent = 'Lyssna på rätt ord';
 
-    // Välj rätt ljud att spela beroende på språkövningen
+    // Spela upp rätt ord beroende på vilken språkövning som valts
     button.onclick = practiceSwedish ? playSwedishSound : playForeignSound;
 
     soundButtonContainer.appendChild(button);
