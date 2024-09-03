@@ -1,88 +1,95 @@
-let currentWordIndex = 0;
-let words = JSON.parse(localStorage.getItem('words')) || [];
-let practiceSwedish = false;
+// practice.js
+let currentWord;
+let results = [];
+let checkSwedish = false;
+
+window.onload = function() {
+    loadNewWord();
+}
+
+function toggleSwedishInput() {
+    checkSwedish = document.getElementById('check-swedish').checked;
+    document.getElementById('swedish-translation').style.display = checkSwedish ? 'inline-block' : 'none';
+}
 
 function loadNewWord() {
-    if (currentWordIndex < words.length) {
-        document.getElementById('translation').value = '';
-        document.getElementById('feedback').textContent = '';
-        document.getElementById('sound-button-container').innerHTML = ''; // Rensa ljudknappen
-        currentWordIndex++;
-    } else {
-        alert('Du har nått slutet av ordlistan.');
-        goBack();
-    }
-}
+    const words = JSON.parse(localStorage.getItem('words'));
+    const randomIndex = Math.floor(Math.random() * words.length);
+    currentWord = words[randomIndex];
 
-function playSwedishSound() {
-    if (currentWordIndex > 0) {
-        const currentWord = words[currentWordIndex - 1];
-        const speech = new SpeechSynthesisUtterance(currentWord.swedish);
-        speech.lang = 'sv-SE';
-        window.speechSynthesis.speak(speech);
-    }
-}
-
-function playForeignSound() {
-    if (currentWordIndex > 0) {
-        const currentWord = words[currentWordIndex - 1];
-        const speech = new SpeechSynthesisUtterance(currentWord.foreign);
-        // Justera språkkoden beroende på vilket språk som används
-        speech.lang = 'en-US'; // Exempel för engelska
-        window.speechSynthesis.speak(speech);
-    }
+    // Dölja knappen för att spela upp översättningen tills användaren kontrollerar svaret
+    document.getElementById('play-foreign').style.display = 'none';
+    document.getElementById('foreign-translation').value = '';
+    document.getElementById('swedish-translation').value = '';
+    document.getElementById('feedback').textContent = '';
 }
 
 function checkAnswer() {
-    if (currentWordIndex > 0) {
-        const currentWord = words[currentWordIndex - 1];
-        const userTranslation = document.getElementById('translation').value;
-        const correctAnswer = practiceSwedish ? currentWord.swedish : currentWord.foreign;
-        if (userTranslation.toLowerCase() === correctAnswer.toLowerCase()) {
-            document.getElementById('feedback').textContent = 'Rätt!';
-            document.getElementById('feedback').style.color = 'green';
-        } else {
-            document.getElementById('feedback').textContent = `Fel! Rätt svar är: ${correctAnswer}`;
+    const foreignInput = document.getElementById('foreign-translation').value;
+    const correctForeign = currentWord.foreign;
+    let result;
+
+    if (checkSwedish) {
+        const swedishInput = document.getElementById('swedish-translation').value;
+        const correctSwedish = currentWord.swedish;
+        if (swedishInput.toLowerCase() !== correctSwedish.toLowerCase()) {
+            document.getElementById('feedback').textContent = `Fel på svenska! Rätt svar är: ${correctSwedish}`;
             document.getElementById('feedback').style.color = 'red';
+            result = { swedish: swedishInput, foreign: foreignInput, correct: false };
+            results.push(result);
+            updateResultsList();
+            return;
         }
-        showSoundButton(); // Visa alltid rätt ord oavsett om svaret var rätt eller fel
     }
+
+    if (foreignInput.toLowerCase() === correctForeign.toLowerCase()) {
+        document.getElementById('feedback').textContent = 'Rätt!';
+        document.getElementById('feedback').style.color = 'green';
+        result = { foreign: foreignInput, correct: true };
+    } else {
+        document.getElementById('feedback').textContent = `Fel! Rätt svar är: ${correctForeign}`;
+        document.getElementById('feedback').style.color = 'red';
+        result = { foreign: foreignInput, correct: false };
+    }
+
+    results.push(result);
+    updateResultsList();
+
+    // Visa knappen för att spela upp översättningen
+    document.getElementById('play-foreign').style.display = 'inline-block';
+
+    setTimeout(loadNewWord, 10000); // Ladda ett nytt ord efter 3 sekunder
+}
+
+function updateResultsList() {
+    const resultsList = document.getElementById('results-list');
+    resultsList.innerHTML = '';
+
+    results.forEach((result) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${result.swedish ? result.swedish + ' - ' : ''}${result.foreign}`;
+        listItem.className = result.correct ? 'correct' : 'incorrect';
+        resultsList.appendChild(listItem);
+    });
+}
+
+function clearResults() {
+    results = [];
+    updateResultsList();
+}
+
+function playSwedishSound() {
+    const speech = new SpeechSynthesisUtterance(currentWord.swedish);
+    speech.lang = 'sv-SE';
+    window.speechSynthesis.speak(speech);
+}
+
+function playForeignSound() {
+    const speech = new SpeechSynthesisUtterance(currentWord.foreign);
+    speech.lang = 'en-US';  // Byt till det språk som är aktuellt
+    window.speechSynthesis.speak(speech);
 }
 
 function goBack() {
     window.location.href = 'index.html';
 }
-
-function toggleLanguagePractice() {
-    practiceSwedish = document.getElementById('toggle-language').checked;
-    updateSoundButtons();
-}
-
-function updateSoundButtons() {
-    // När "Öva på svenska ordet" är markerat ska knappen spela upp det andra språket
-    const soundButtonContainer = document.getElementById('sound-button-container');
-    soundButtonContainer.innerHTML = ''; // Rensa eventuella existerande knappar
-
-    const button = document.createElement('button');
-    button.textContent = practiceSwedish ? 'Lyssna på ord på annat språk' : 'Lyssna på svenska ordet';
-
-    // Spela upp rätt ord beroende på vilken språkövning som valts
-    button.onclick = practiceSwedish ? playForeignSound : playSwedishSound;
-
-    soundButtonContainer.appendChild(button);
-}
-
-function showSoundButton() {
-    // Visa alltid rätt ord beroende på om användaren övar på svenska eller det andra språket
-    updateSoundButtons();
-}
-
-// Ladda automatiskt det första ordet när sidan laddas
-window.onload = function() {
-    if (words.length > 0) {
-        loadNewWord();
-    } else {
-        alert('Det finns inga ord att öva på. Lägg till några ord först.');
-        goBack();
-    }
-};

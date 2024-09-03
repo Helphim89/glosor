@@ -3,27 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glosövning - Öva</title>
+    <title>Öva Glosor</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Glosövning - Öva</h1>
+    <h1>Öva Glosor</h1>
     <div id="practice-area">
         <label>
-            <input type="checkbox" id="toggle-language" onchange="toggleLanguagePractice()">
-            Öva på svenska ordet
+            <input type="checkbox" id="check-swedish" onclick="toggleSwedishInput()"> Öva på svenska ordet också
         </label>
         <br>
-        <button id="play-swedish-sound" onclick="playSwedishSound()">Spela upp svenska ordet</button>
-        <button id="play-foreign-sound" onclick="playForeignSound()">Spela upp ordet på annat språk</button>
-        <input type="text" id="translation" placeholder="Skriv översättningen">
+        <button id="play-swedish" onclick="playSwedishSound()">Spela upp svenska ordet</button>
+        <input type="text" id="swedish-translation" placeholder="Skriv svenska ordet" style="display: none;">
+        <input type="text" id="foreign-translation" placeholder="Skriv översättningen på annat språk">
+        <button id="play-foreign" style="display: none;" onclick="playForeignSound()">Spela upp översättningen</button>
         <button onclick="checkAnswer()">Kontrollera</button>
         <p id="feedback"></p>
-        <!-- Placeholder for dynamically adding the sound button after checking the answer -->
-        <div id="sound-button-container"></div>
-        <button onclick="loadNewWord()">Nästa ord</button>
     </div>
+
+    <div id="results-area">
+        <h2>Dina svar</h2>
+        <ul id="results-list"></ul>
+        <button onclick="clearResults()">Rensa resultat</button>
+    </div>
+
     <button onclick="goBack()">Tillbaka</button>
+
     <script src="practice.js"></script>
 </body>
 </html>

@@ -1,49 +1,43 @@
+/* styles.css */
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
     padding: 20px;
-    max-width: 800px;
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
     background-color: #f0f0f0;
 }
 
-h1, h2, h3 {
+h1, h2 {
     text-align: center;
 }
 
-input[type="text"], button {
-    padding: 8px;
-    margin: 5px;
-    width: calc(50% - 18px);
+#practice-area, #results-area {
+    margin-top: 20px;
 }
 
-button {
-    cursor: pointer;
-}
-
-.word-list-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.word-list-container div {
-    width: 48%;
-}
-
-.word-list-container ul {
+ul {
     list-style-type: none;
     padding: 0;
 }
 
-.word-list-container ul li {
+ul li {
     margin: 5px 0;
-    background-color: #e0e0e0;
     padding: 5px;
+    background-color: #e0e0e0;
     display: flex;
     justify-content: space-between;
 }
 
-.word-list-container ul li button {
+ul li.correct {
+    color: green;
+}
+
+ul li.incorrect {
+    color: red;
+}
+
+ul li button {
     margin-left: 10px;
 }

@@ -3,35 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glosövning</title>
+    <title>Öva Glosor</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Glosövning</h1>
+    <h1>Öva Glosor</h1>
     <div>
-        <h2>Lägg till ett ordpar</h2>
+        <h2>Lägg till Glosa</h2>
         <input type="text" id="swedish-word" placeholder="Svenska ordet">
-        <input type="text" id="foreign-word" placeholder="Ord på annat språk">
-        <button onclick="addWord()">Lägg till ordpar</button>
+        <input type="text" id="foreign-word" placeholder="Engelska ordet">
+        <button onclick="addWord()">Lägg till</button>
     </div>
     <div>
-        <h2>Dina ord</h2>
-        <!-- Ordlistan delas upp i två kolumner -->
-        <div class="word-list-container">
-            <div>
-                <h3>Svenska</h3>
-                <ul id="swedish-word-list"></ul>
-            </div>
-            <div>
-                <h3>Annat språk</h3>
-                <ul id="foreign-word-list"></ul>
-            </div>
-        </div>
-        <button onclick="clearWords()">Rensa alla ord</button>
+        <h2>Dina Glosor</h2>
+        <ul id="word-list"></ul>
+        <button onclick="clearWords()">Rensa alla</button>
     </div>
     <div>
         <button onclick="startPractice()">Börja öva</button>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
