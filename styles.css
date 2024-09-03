@@ -1,9 +1,8 @@
-/* styles.css */
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
     padding: 20px;
-    max-width: 600px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     background-color: #f0f0f0;
@@ -13,8 +12,14 @@ h1, h2 {
     text-align: center;
 }
 
-#practice-area, #results-area {
-    margin-top: 20px;
+input[type="text"], button {
+    padding: 8px;
+    margin: 5px;
+    width: calc(50% - 18px);
+}
+
+button {
+    cursor: pointer;
 }
 
 ul {
@@ -24,18 +29,10 @@ ul {
 
 ul li {
     margin: 5px 0;
-    padding: 5px;
     background-color: #e0e0e0;
+    padding: 5px;
     display: flex;
     justify-content: space-between;
-}
-
-ul li.correct {
-    color: green;
-}
-
-ul li.incorrect {
-    color: red;
 }
 
 ul li button {
