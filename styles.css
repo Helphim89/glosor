@@ -13,7 +13,7 @@ h1, h2 {
     text-align: center;
 }
 
-#practice-area {
+#practice-area, #results-area {
     margin-top: 20px;
 }
 
@@ -28,6 +28,14 @@ ul li {
     background-color: #e0e0e0;
     display: flex;
     justify-content: space-between;
+}
+
+ul li.correct {
+    color: green;
+}
+
+ul li.incorrect {
+    color: red;
 }
 
 ul li button {
