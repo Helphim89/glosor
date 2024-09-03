@@ -14,8 +14,16 @@
         <input type="text" id="translation" placeholder="Din översättning">
         <button onclick="checkAnswer()">Kontrollera</button>
         <p id="feedback"></p>
-        <button onclick="goBack()">Tillbaka</button>
     </div>
+
+    <div id="results-area">
+        <h2>Dina svar</h2>
+        <ul id="results-list"></ul>
+        <button onclick="clearResults()">Rensa resultat</button>
+    </div>
+
+    <button onclick="goBack()">Tillbaka</button>
+
     <script src="practice.js"></script>
 </body>
 </html>
