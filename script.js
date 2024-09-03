@@ -1,70 +1,47 @@
-// script.js
 let words = JSON.parse(localStorage.getItem('words')) || [];
 
 function addWord() {
     const swedishWord = document.getElementById('swedish-word').value;
     const foreignWord = document.getElementById('foreign-word').value;
-
     if (swedishWord && foreignWord) {
         words.push({ swedish: swedishWord, foreign: foreignWord });
+        localStorage.setItem('words', JSON.stringify(words));
         updateWordList();
-        saveWords(); // Spara till localStorage
         document.getElementById('swedish-word').value = '';
         document.getElementById('foreign-word').value = '';
     } else {
-        alert('Fyll i båda fälten.');
-    }
-}
-
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-        addWord();
+        alert('Fyll i både svenska ordet och ordet på annat språk.');
     }
 }
 
 function updateWordList() {
-    const wordList = document.getElementById('word-list');
-    wordList.innerHTML = '';
-
+    const list = document.getElementById('word-list');
+    list.innerHTML = '';
     words.forEach((word, index) => {
         const listItem = document.createElement('li');
         listItem.textContent = `${word.swedish} - ${word.foreign}`;
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Ta bort';
-        deleteButton.onclick = () => removeWord(index);
+        deleteButton.onclick = () => {
+            words.splice(index, 1);
+            localStorage.setItem('words', JSON.stringify(words));
+            updateWordList();
+        };
         listItem.appendChild(deleteButton);
-        wordList.appendChild(listItem);
+        list.appendChild(listItem);
     });
-}
-
-function removeWord(index) {
-    words.splice(index, 1);
-    updateWordList();
-    saveWords(); // Spara till localStorage
 }
 
 function clearWords() {
     words = [];
+    localStorage.setItem('words', JSON.stringify(words));
     updateWordList();
-    saveWords(); // Spara till localStorage
 }
 
 function startPractice() {
     if (words.length === 0) {
-        alert('Lägg till några glosor först.');
+        alert('Lägg till några ord först.');
         return;
     }
-    localStorage.setItem('words', JSON.stringify(words));
     window.location.href = 'practice.html';
 }
-
-function saveWords() {
-    localStorage.setItem('words', JSON.stringify(words));
-}
-
-// Lägg till eventlyssnare för inmatningsfälten
-document.getElementById('swedish-word').addEventListener('keydown', handleKeyPress);
-document.getElementById('foreign-word').addEventListener('keydown', handleKeyPress);
-
-// Uppdatera listan när sidan laddas
-updateWordList();
