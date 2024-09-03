@@ -1,8 +1,10 @@
 let words = JSON.parse(localStorage.getItem('words')) || [];
 
 function addWord() {
-    const swedishWord = document.getElementById('swedish-word').value;
-    const foreignWord = document.getElementById('foreign-word').value;
+    const swedishWord = document.getElementById('swedish-word').value.trim();
+    const foreignWord = document.getElementById('foreign-word').value.trim();
+
+    // Validera att båda fälten är ifyllda och inte bara blanksteg
     if (swedishWord && foreignWord) {
         words.push({ swedish: swedishWord, foreign: foreignWord });
         localStorage.setItem('words', JSON.stringify(words));
@@ -15,11 +17,19 @@ function addWord() {
 }
 
 function updateWordList() {
-    const list = document.getElementById('word-list');
-    list.innerHTML = '';
+    const swedishList = document.getElementById('swedish-word-list');
+    const foreignList = document.getElementById('foreign-word-list');
+    swedishList.innerHTML = '';
+    foreignList.innerHTML = '';
+
     words.forEach((word, index) => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${word.swedish} - ${word.foreign}`;
+        const swedishListItem = document.createElement('li');
+        swedishListItem.textContent = word.swedish;
+
+        const foreignListItem = document.createElement('li');
+        foreignListItem.textContent = word.foreign;
+
+        // Lägg till ta bort-knappar
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Ta bort';
         deleteButton.onclick = () => {
@@ -27,8 +37,13 @@ function updateWordList() {
             localStorage.setItem('words', JSON.stringify(words));
             updateWordList();
         };
-        listItem.appendChild(deleteButton);
-        list.appendChild(listItem);
+
+        // Lägg till ta bort-knappar till båda kolumnerna
+        swedishListItem.appendChild(deleteButton.cloneNode(true));
+        foreignListItem.appendChild(deleteButton);
+
+        swedishList.appendChild(swedishListItem);
+        foreignList.appendChild(foreignListItem);
     });
 }
 
@@ -46,5 +61,5 @@ function startPractice() {
     window.location.href = 'practice.html';
 }
 
-// Initialize the word list on page load
+// Initialisera ordlistan vid sidladdning
 window.onload = updateWordList;
