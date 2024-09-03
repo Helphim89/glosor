@@ -8,21 +8,17 @@
 </head>
 <body>
     <h1>Öva Glosor</h1>
-    <div>
-        <h2>Lägg till Glosa</h2>
-        <input type="text" id="swedish-word" placeholder="Svenska ordet">
-        <input type="text" id="foreign-word" placeholder="Engelska ordet">
-        <button onclick="addWord()">Lägg till</button>
-    </div>
-    <div>
-        <h2>Dina Glosor</h2>
-        <ul id="word-list"></ul>
-        <button onclick="clearWords()">Rensa alla</button>
-    </div>
-    <div>
-        <button onclick="startPractice()">Börja öva</button>
-    </div>
 
-    <script src="script.js"></script>
+    <h2>Lägg till ett ordpar</h2>
+    <input type="text" id="swedish-word" placeholder="Svenska ordet">
+    <input type="text" id="foreign-word" placeholder="Ord på annat språk">
+    <button onclick="addWord()">Lägg till ordpar</button>
+    <ul id="word-list"></ul>
+    <button onclick="clearWords()">Rensa alla ord</button>
+    
+    <h2>Börja Öva</h2>
+    <button onclick="startPractice()">Börja Öva</button>
+
+    <script src="app.js"></script>
 </body>
 </html>
