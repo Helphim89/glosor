@@ -3,41 +3,48 @@ let words = JSON.parse(localStorage.getItem('words')) || [];
 
 function loadNewWord() {
     if (currentWordIndex < words.length) {
-        const currentWord = words[currentWordIndex];
-        document.getElementById('foreign-translation').value = '';
-        document.getElementById('swedish-translation').value = '';
+        document.getElementById('translation').value = '';
         document.getElementById('feedback').textContent = '';
-        document.getElementById('play-swedish').style.display = 'block';
+        currentWordIndex++;
     } else {
         alert('Du har nått slutet av ordlistan.');
         goBack();
     }
 }
 
-function toggleSwedish() {
-    let includeSwedish = document.getElementById('include-swedish').checked;
-    document.getElementById('swedish-translation').style.display = includeSwedish ? 'block' : 'none';
-}
-
-function playSwedishSound() {
-    const currentWord = words[currentWordIndex];
-    const speech = new SpeechSynthesisUtterance(currentWord.swedish);
-    speech.lang = 'sv-SE';
-    window.speechSynthesis.speak(speech);
+function playSound() {
+    if (currentWordIndex > 0) {
+        const currentWord = words[currentWordIndex - 1];
+        const speech = new SpeechSynthesisUtterance(currentWord.swedish);
+        speech.lang = 'sv-SE';
+        window.speechSynthesis.speak(speech);
+    }
 }
 
 function checkAnswer() {
-    const currentWord = words[currentWordIndex];
-    const userTranslation = document.getElementById('foreign-translation').value;
-    const userSwedish = document.getElementById('swedish-translation').value;
-    let correct = true;
-
-    if (userTranslation.toLowerCase() !== currentWord.foreign.toLowerCase()) {
-        correct = false;
+    if (currentWordIndex > 0) {
+        const currentWord = words[currentWordIndex - 1];
+        const userTranslation = document.getElementById('translation').value;
+        if (userTranslation.toLowerCase() === currentWord.foreign.toLowerCase()) {
+            document.getElementById('feedback').textContent = 'Rätt!';
+            document.getElementById('feedback').style.color = 'green';
+        } else {
+            document.getElementById('feedback').textContent = `Fel! Rätt svar är: ${currentWord.foreign}`;
+            document.getElementById('feedback').style.color = 'red';
+        }
     }
+}
 
-    if (document.getElementById('include-swedish').checked && userSwedish.toLowerCase() !== currentWord.swedish.toLowerCase()) {
-        correct = false;
+function goBack() {
+    window.location.href = 'index.html';
+}
+
+// Automatically load the first word when the page loads
+window.onload = function() {
+    if (words.length > 0) {
+        loadNewWord();
+    } else {
+        alert('Det finns inga ord att öva på. Lägg till några ord först.');
+        goBack();
     }
-
-   
+};
