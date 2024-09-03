@@ -45,8 +45,6 @@ function startPractice() {
         alert('Lägg till några glosor först.');
         return;
     }
-    const randomIndex = Math.floor(Math.random() * words.length);
-    const word = words[randomIndex];
-    sessionStorage.setItem('currentWord', JSON.stringify(word));
+    sessionStorage.setItem('words', JSON.stringify(words));
     window.location.href = 'practice.html';
 }
