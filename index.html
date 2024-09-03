@@ -11,19 +11,18 @@
     <div>
         <h2>Lägg till Glosa</h2>
         <input type="text" id="swedish-word" placeholder="Svenska ordet">
-        <input type="text" id="foreign-word" placeholder="Andra språket">
+        <input type="text" id="foreign-word" placeholder="Engelska ordet">
         <button onclick="addWord()">Lägg till</button>
     </div>
     <div>
-        <h2>Öva</h2>
-        <div id="practice-area">
-            <p id="word-to-translate"></p>
-            <input type="text" id="translation" placeholder="Din översättning">
-            <button onclick="checkAnswer()">Kontrollera</button>
-            <p id="feedback"></p>
-        </div>
+        <h2>Dina Glosor</h2>
+        <ul id="word-list"></ul>
+        <button onclick="clearWords()">Rensa alla</button>
+    </div>
+    <div>
         <button onclick="startPractice()">Börja öva</button>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
