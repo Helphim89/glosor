@@ -7,12 +7,37 @@ function addWord() {
 
     if (swedishWord && foreignWord) {
         words.push({ swedish: swedishWord, foreign: foreignWord });
-        alert('Glosa tillagd!');
+        updateWordList();
         document.getElementById('swedish-word').value = '';
         document.getElementById('foreign-word').value = '';
     } else {
         alert('Fyll i båda fälten.');
     }
+}
+
+function updateWordList() {
+    const wordList = document.getElementById('word-list');
+    wordList.innerHTML = '';
+
+    words.forEach((word, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${word.swedish} - ${word.foreign}`;
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Ta bort';
+        deleteButton.onclick = () => removeWord(index);
+        listItem.appendChild(deleteButton);
+        wordList.appendChild(listItem);
+    });
+}
+
+function removeWord(index) {
+    words.splice(index, 1);
+    updateWordList();
+}
+
+function clearWords() {
+    words = [];
+    updateWordList();
 }
 
 function startPractice() {
@@ -22,20 +47,6 @@ function startPractice() {
     }
     const randomIndex = Math.floor(Math.random() * words.length);
     const word = words[randomIndex];
-    document.getElementById('word-to-translate').textContent = word.swedish;
-    document.getElementById('feedback').textContent = '';
-    document.getElementById('translation').value = '';
-    document.getElementById('translation').focus();
-}
-
-function checkAnswer() {
-    const wordToTranslate = document.getElementById('word-to-translate').textContent;
-    const translation = document.getElementById('translation').value;
-    
-    const word = words.find(w => w.swedish === wordToTranslate);
-    if (word && word.foreign.toLowerCase() === translation.toLowerCase()) {
-        document.getElementById('feedback').textContent = 'Rätt!';
-    } else {
-        document.getElementById('feedback').textContent = `Fel! Rätt svar är: ${word.foreign}`;
-    }
+    sessionStorage.setItem('currentWord', JSON.stringify(word));
+    window.location.href = 'practice.html';
 }
