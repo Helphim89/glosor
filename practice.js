@@ -59,20 +59,22 @@ function toggleLanguagePractice() {
 }
 
 function updateSoundButtons() {
-    // Båda knapparna ska alltid vara synliga, ingen gömning behövs
-}
-
-function showSoundButton() {
+    // När "Öva på svenska ordet" är markerat ska knappen spela upp det andra språket
     const soundButtonContainer = document.getElementById('sound-button-container');
     soundButtonContainer.innerHTML = ''; // Rensa eventuella existerande knappar
 
     const button = document.createElement('button');
-    button.textContent = 'Lyssna på rätt ord';
+    button.textContent = practiceSwedish ? 'Lyssna på ord på annat språk' : 'Lyssna på svenska ordet';
 
     // Spela upp rätt ord beroende på vilken språkövning som valts
-    button.onclick = practiceSwedish ? playSwedishSound : playForeignSound;
+    button.onclick = practiceSwedish ? playForeignSound : playSwedishSound;
 
     soundButtonContainer.appendChild(button);
+}
+
+function showSoundButton() {
+    // Visa alltid rätt ord beroende på om användaren övar på svenska eller det andra språket
+    updateSoundButtons();
 }
 
 // Ladda automatiskt det första ordet när sidan laddas
