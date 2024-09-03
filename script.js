@@ -40,4 +40,11 @@ function clearWords() {
 
 function startPractice() {
     if (words.length === 0) {
-        alert('Lägg till några ord för
+        alert('Lägg till några ord först.');
+        return;
+    }
+    window.location.href = 'practice.html';
+}
+
+// Initialize the word list on page load
+window.onload = updateWordList;
