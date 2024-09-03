@@ -1,6 +1,5 @@
 // practice.js
 let currentWord;
-let currentLanguage;
 let results = [];
 
 window.onload = function() {
@@ -8,32 +7,32 @@ window.onload = function() {
 }
 
 function loadNewWord() {
-    const words = JSON.parse(sessionStorage.getItem('words'));
+    const words = JSON.parse(localStorage.getItem('words'));
     const randomIndex = Math.floor(Math.random() * words.length);
     currentWord = words[randomIndex];
 
-    // Slumpa om svenska eller engelska ska visas
-    currentLanguage = Math.random() < 0.5 ? 'swedish' : 'foreign';
-    const wordToTranslate = currentLanguage === 'swedish' ? currentWord.swedish : currentWord.foreign;
-
-    document.getElementById('word-to-translate').textContent = wordToTranslate;
-    document.getElementById('translation').value = '';
+    document.getElementById('word-to-translate').textContent = currentWord.swedish;
+    document.getElementById('swedish-translation').value = '';
+    document.getElementById('foreign-translation').value = '';
     document.getElementById('feedback').textContent = '';
 }
 
 function checkAnswer() {
-    const translation = document.getElementById('translation').value;
-    const correctTranslation = currentLanguage === 'swedish' ? currentWord.foreign : currentWord.swedish;
+    const swedishInput = document.getElementById('swedish-translation').value;
+    const foreignInput = document.getElementById('foreign-translation').value;
+
+    const correctSwedish = currentWord.swedish;
+    const correctForeign = currentWord.foreign;
     let result;
 
-    if (correctTranslation.toLowerCase() === translation.toLowerCase()) {
-        document.getElementById('feedback').textContent = 'Rätt!';
+    if (swedishInput.toLowerCase() === correctSwedish.toLowerCase() && foreignInput.toLowerCase() === correctForeign.toLowerCase()) {
+        document.getElementById('feedback').textContent = 'Rätt på båda språken!';
         document.getElementById('feedback').style.color = 'green';
-        result = { word: translation, correct: true };
+        result = { swedish: swedishInput, foreign: foreignInput, correct: true };
     } else {
-        document.getElementById('feedback').textContent = `Fel! Rätt svar är: ${correctTranslation}`;
+        document.getElementById('feedback').textContent = `Fel! Rätt svar är: ${correctSwedish} - ${correctForeign}`;
         document.getElementById('feedback').style.color = 'red';
-        result = { word: translation, correct: false };
+        result = { swedish: swedishInput, foreign: foreignInput, correct: false };
     }
 
     results.push(result);
@@ -48,7 +47,7 @@ function updateResultsList() {
 
     results.forEach((result) => {
         const listItem = document.createElement('li');
-        listItem.textContent = result.word;
+        listItem.textContent = `${result.swedish} - ${result.foreign}`;
         listItem.className = result.correct ? 'correct' : 'incorrect';
         resultsList.appendChild(listItem);
     });
@@ -59,11 +58,9 @@ function clearResults() {
     updateResultsList();
 }
 
-function playSound() {
-    const wordToTranslate = currentLanguage === 'swedish' ? currentWord.swedish : currentWord.foreign;
-
-    const speech = new SpeechSynthesisUtterance(wordToTranslate);
-    speech.lang = currentLanguage === 'swedish' ? 'sv-SE' : 'en-US';
+function playSwedishSound() {
+    const speech = new SpeechSynthesisUtterance(currentWord.swedish);
+    speech.lang = 'sv-SE';
     window.speechSynthesis.speak(speech);
 }
 
