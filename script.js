@@ -15,6 +15,12 @@ function addWord() {
     }
 }
 
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        addWord();
+    }
+}
+
 function updateWordList() {
     const wordList = document.getElementById('word-list');
     wordList.innerHTML = '';
@@ -48,3 +54,7 @@ function startPractice() {
     sessionStorage.setItem('words', JSON.stringify(words));
     window.location.href = 'practice.html';
 }
+
+// Lägg till eventlyssnare för inmatningsfälten
+document.getElementById('swedish-word').addEventListener('keydown', handleKeyPress);
+document.getElementById('foreign-word').addEventListener('keydown', handleKeyPress);
