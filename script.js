@@ -30,17 +30,25 @@ function updateWordList() {
         foreignListItem.textContent = word.foreign;
 
         // Lägg till ta bort-knappar
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Ta bort';
-        deleteButton.onclick = () => {
+        const deleteButtonSwedish = document.createElement('button');
+        deleteButtonSwedish.textContent = 'Ta bort';
+        deleteButtonSwedish.onclick = () => {
+            words.splice(index, 1);
+            localStorage.setItem('words', JSON.stringify(words));
+            updateWordList();
+        };
+
+        const deleteButtonForeign = document.createElement('button');
+        deleteButtonForeign.textContent = 'Ta bort';
+        deleteButtonForeign.onclick = () => {
             words.splice(index, 1);
             localStorage.setItem('words', JSON.stringify(words));
             updateWordList();
         };
 
         // Lägg till ta bort-knappar till båda kolumnerna
-        swedishListItem.appendChild(deleteButton.cloneNode(true));
-        foreignListItem.appendChild(deleteButton);
+        swedishListItem.appendChild(deleteButtonSwedish);
+        foreignListItem.appendChild(deleteButtonForeign);
 
         swedishList.appendChild(swedishListItem);
         foreignList.appendChild(foreignListItem);
