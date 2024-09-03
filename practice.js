@@ -57,8 +57,6 @@ function checkAnswer() {
 
     // Visa knappen för att spela upp översättningen
     document.getElementById('play-foreign').style.display = 'inline-block';
-
-    setTimeout(loadNewWord, 10000); // Ladda ett nytt ord efter 3 sekunder
 }
 
 function updateResultsList() {
