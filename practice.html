@@ -9,7 +9,12 @@
 <body>
     <h1>Öva Glosor</h1>
     <div id="practice-area">
+        <label>
+            <input type="checkbox" id="check-swedish" onclick="toggleSwedishInput()"> Öva på svenska ordet också
+        </label>
+        <br>
         <button id="play-swedish" onclick="playSwedishSound()">Spela upp svenska ordet</button>
+        <input type="text" id="swedish-translation" placeholder="Skriv svenska ordet" style="display: none;">
         <input type="text" id="foreign-translation" placeholder="Skriv översättningen på annat språk">
         <button id="play-foreign" style="display: none;" onclick="playForeignSound()">Spela upp översättningen</button>
         <button onclick="checkAnswer()">Kontrollera</button>
