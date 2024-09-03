@@ -6,7 +6,7 @@ function loadNewWord() {
     if (currentWordIndex < words.length) {
         document.getElementById('translation').value = '';
         document.getElementById('feedback').textContent = '';
-        document.getElementById('sound-button-container').innerHTML = ''; // Clear sound button
+        document.getElementById('sound-button-container').innerHTML = ''; // Rensa ljudknappen
         currentWordIndex++;
         updateSoundButtons();
     } else {
@@ -28,8 +28,8 @@ function playForeignSound() {
     if (currentWordIndex > 0) {
         const currentWord = words[currentWordIndex - 1];
         const speech = new SpeechSynthesisUtterance(currentWord.foreign);
-        // Adjust the language code based on the foreign word's language
-        speech.lang = 'en-US'; // Example for English
+        // Justera språkkoden beroende på vilket språk som används
+        speech.lang = 'en-US'; // Exempel för engelska
         window.speechSynthesis.speak(speech);
     }
 }
@@ -66,7 +66,7 @@ function updateSoundButtons() {
 
 function showSoundButton(isCorrect) {
     const soundButtonContainer = document.getElementById('sound-button-container');
-    soundButtonContainer.innerHTML = ''; // Clear any existing button
+    soundButtonContainer.innerHTML = ''; // Rensa eventuella existerande knappar
 
     const button = document.createElement('button');
     if (isCorrect) {
@@ -80,7 +80,7 @@ function showSoundButton(isCorrect) {
     soundButtonContainer.appendChild(button);
 }
 
-// Automatically load the first word when the page loads
+// Ladda automatiskt det första ordet när sidan laddas
 window.onload = function() {
     if (words.length > 0) {
         loadNewWord();
