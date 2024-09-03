@@ -15,10 +15,11 @@
         </label>
         <br>
         <button id="play-swedish-sound" onclick="playSwedishSound()">Spela upp svenska ordet</button>
-        <button id="play-foreign-sound" onclick="playForeignSound()">Spela upp ordet på annat språk</button>
         <input type="text" id="translation" placeholder="Skriv översättningen">
         <button onclick="checkAnswer()">Kontrollera</button>
         <p id="feedback"></p>
+        <!-- Placeholder for dynamically adding the sound button after checking the answer -->
+        <div id="sound-button-container"></div>
         <button onclick="loadNewWord()">Nästa ord</button>
     </div>
     <button onclick="goBack()">Tillbaka</button>
