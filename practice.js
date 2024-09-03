@@ -40,17 +40,4 @@ function checkAnswer() {
         correct = false;
     }
 
-    if (correct) {
-        document.getElementById('feedback').textContent = 'Rätt!';
-        document.getElementById('feedback').style.color = 'green';
-    } else {
-        document.getElementById('feedback').textContent = `Fel! Rätt svar är: ${currentWord.swedish} - ${currentWord.foreign}`;
-        document.getElementById('feedback').style.color = 'red';
-    }
-
-    currentWordIndex++;
-}
-
-function goBack() {
-    window.location.href = 'index.html';
-}
+   
