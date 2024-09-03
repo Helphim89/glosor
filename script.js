@@ -8,7 +8,7 @@ function addWord() {
     if (swedishWord && foreignWord) {
         words.push({ swedish: swedishWord, foreign: foreignWord });
         updateWordList();
-        saveWords(); // Spara till localStorage
+        saveWords();
         document.getElementById('swedish-word').value = '';
         document.getElementById('foreign-word').value = '';
     } else {
@@ -40,13 +40,13 @@ function updateWordList() {
 function removeWord(index) {
     words.splice(index, 1);
     updateWordList();
-    saveWords(); // Spara till localStorage
+    saveWords();
 }
 
 function clearWords() {
     words = [];
     updateWordList();
-    saveWords(); // Spara till localStorage
+    saveWords();
 }
 
 function startPractice() {
@@ -62,9 +62,9 @@ function saveWords() {
     localStorage.setItem('words', JSON.stringify(words));
 }
 
-// Lägg till eventlyssnare för inmatningsfälten
+// Add event listeners for input fields
 document.getElementById('swedish-word').addEventListener('keydown', handleKeyPress);
 document.getElementById('foreign-word').addEventListener('keydown', handleKeyPress);
 
-// Uppdatera listan när sidan laddas
+// Update list when page loads
 updateWordList();
