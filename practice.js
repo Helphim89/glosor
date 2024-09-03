@@ -6,6 +6,7 @@ function loadNewWord() {
     if (currentWordIndex < words.length) {
         document.getElementById('translation').value = '';
         document.getElementById('feedback').textContent = '';
+        document.getElementById('sound-button-container').innerHTML = ''; // Clear sound button
         currentWordIndex++;
         updateSoundButtons();
     } else {
@@ -27,8 +28,8 @@ function playForeignSound() {
     if (currentWordIndex > 0) {
         const currentWord = words[currentWordIndex - 1];
         const speech = new SpeechSynthesisUtterance(currentWord.foreign);
-        // Du kan behöva justera språkkoden beroende på vilket språk som används
-        speech.lang = 'en-US'; // Exempel för engelska
+        // Adjust the language code based on the foreign word's language
+        speech.lang = 'en-US'; // Example for English
         window.speechSynthesis.speak(speech);
     }
 }
@@ -41,9 +42,11 @@ function checkAnswer() {
         if (userTranslation.toLowerCase() === correctAnswer.toLowerCase()) {
             document.getElementById('feedback').textContent = 'Rätt!';
             document.getElementById('feedback').style.color = 'green';
+            showSoundButton(true);
         } else {
             document.getElementById('feedback').textContent = `Fel! Rätt svar är: ${correctAnswer}`;
             document.getElementById('feedback').style.color = 'red';
+            showSoundButton(false);
         }
     }
 }
@@ -59,7 +62,22 @@ function toggleLanguagePractice() {
 
 function updateSoundButtons() {
     document.getElementById('play-swedish-sound').style.display = practiceSwedish ? 'none' : 'inline-block';
-    document.getElementById('play-foreign-sound').style.display = practiceSwedish ? 'inline-block' : 'none';
+}
+
+function showSoundButton(isCorrect) {
+    const soundButtonContainer = document.getElementById('sound-button-container');
+    soundButtonContainer.innerHTML = ''; // Clear any existing button
+
+    const button = document.createElement('button');
+    if (isCorrect) {
+        button.textContent = 'Lyssna på ordet';
+        button.onclick = practiceSwedish ? playForeignSound : playSwedishSound;
+    } else {
+        button.textContent = 'Lyssna på rätt ord';
+        button.onclick = practiceSwedish ? playSwedishSound : playForeignSound;
+    }
+
+    soundButtonContainer.appendChild(button);
 }
 
 // Automatically load the first word when the page loads
