@@ -42,12 +42,11 @@ function checkAnswer() {
         if (userTranslation.toLowerCase() === correctAnswer.toLowerCase()) {
             document.getElementById('feedback').textContent = 'Rätt!';
             document.getElementById('feedback').style.color = 'green';
-            showSoundButton(true);
         } else {
             document.getElementById('feedback').textContent = `Fel! Rätt svar är: ${correctAnswer}`;
             document.getElementById('feedback').style.color = 'red';
-            showSoundButton(false);
         }
+        showSoundButton(); // Visar alltid rätt ord oavsett om svaret var rätt eller fel
     }
 }
 
@@ -64,18 +63,15 @@ function updateSoundButtons() {
     document.getElementById('play-swedish-sound').style.display = practiceSwedish ? 'none' : 'inline-block';
 }
 
-function showSoundButton(isCorrect) {
+function showSoundButton() {
     const soundButtonContainer = document.getElementById('sound-button-container');
     soundButtonContainer.innerHTML = ''; // Rensa eventuella existerande knappar
 
     const button = document.createElement('button');
-    if (isCorrect) {
-        button.textContent = 'Lyssna på ordet';
-        button.onclick = practiceSwedish ? playForeignSound : playSwedishSound;
-    } else {
-        button.textContent = 'Lyssna på rätt ord';
-        button.onclick = practiceSwedish ? playSwedishSound : playForeignSound;
-    }
+    button.textContent = 'Lyssna på rätt ord';
+
+    // Välj rätt ljud att spela beroende på språkövningen
+    button.onclick = practiceSwedish ? playSwedishSound : playForeignSound;
 
     soundButtonContainer.appendChild(button);
 }
