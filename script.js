@@ -1,5 +1,5 @@
 // script.js
-let words = [];
+let words = JSON.parse(localStorage.getItem('words')) || [];
 
 function addWord() {
     const swedishWord = document.getElementById('swedish-word').value;
@@ -8,6 +8,7 @@ function addWord() {
     if (swedishWord && foreignWord) {
         words.push({ swedish: swedishWord, foreign: foreignWord });
         updateWordList();
+        saveWords(); // Spara till localStorage
         document.getElementById('swedish-word').value = '';
         document.getElementById('foreign-word').value = '';
     } else {
@@ -39,11 +40,13 @@ function updateWordList() {
 function removeWord(index) {
     words.splice(index, 1);
     updateWordList();
+    saveWords(); // Spara till localStorage
 }
 
 function clearWords() {
     words = [];
     updateWordList();
+    saveWords(); // Spara till localStorage
 }
 
 function startPractice() {
@@ -51,10 +54,17 @@ function startPractice() {
         alert('Lägg till några glosor först.');
         return;
     }
-    sessionStorage.setItem('words', JSON.stringify(words));
+    localStorage.setItem('words', JSON.stringify(words));
     window.location.href = 'practice.html';
+}
+
+function saveWords() {
+    localStorage.setItem('words', JSON.stringify(words));
 }
 
 // Lägg till eventlyssnare för inmatningsfälten
 document.getElementById('swedish-word').addEventListener('keydown', handleKeyPress);
 document.getElementById('foreign-word').addEventListener('keydown', handleKeyPress);
+
+// Uppdatera listan när sidan laddas
+updateWordList();
