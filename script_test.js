@@ -1,4 +1,4 @@
-```javascript
+
 let currentWord;
 let results = [];
 let checkSwedish = false;
