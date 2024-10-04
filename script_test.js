@@ -1,4 +1,4 @@
-
+```javascript
 let currentWord;
 let results = [];
 let checkSwedish = false;
@@ -8,7 +8,7 @@ function login() {
     const password = document.getElementById('password').value;
 
     if (username === 'test' && password === 'test') {
-        window.location.href = 'index_test.html';
+        window.location.href = 'index.html';
     } else {
         document.getElementById('login-feedback').textContent = 'Fel användarnamn eller lösenord!';
         document.getElementById('login-feedback').style.color = 'red';
@@ -89,27 +89,4 @@ function loadHistory() {
 
         allWords[date].forEach(word => {
             const listItem = document.createElement('li');
-            listItem.textContent = `${word.swedish} - ${word.foreign}`;
-            wordList.appendChild(listItem);
-        });
-
-        dateDiv.appendChild(wordList);
-        historyList.appendChild(dateDiv);
-    });
-}
-
-function goBack() {
-    window.location.href = 'index_test.html';
-}
-
-function toggleSwedishInput() {
-    checkSwedish = document.getElementById('check-swedish').checked;
-    document.getElementById('swedish-translation').style.display = checkSwedish ? 'inline-block' : 'none';
-}
-
-window.onload = function () {
-    const savedColor = localStorage.getItem('backgroundColor');
-    if (savedColor) {
-        document.body.style.backgroundColor = savedColor;
-    }
-};
+            listItem.textContent
